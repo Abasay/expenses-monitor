@@ -137,3 +137,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const loginForm = document.getElementById('login-form');
+
+  // Handle login
+  loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(loginForm);
+    const username = formData.get('username');
+    const password = formData.get('password');
+
+    try {
+      const response = await fetch(
+        'https://expenses-monitor-api.onrender.com/auth/login',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, password }),
+        }
+      );
+      const result = await response.json();
+      if (response.ok) {
+        localStorage.setItem('token', result.token);
+        alert('Login successful!');
+        window.location.href = '/';
+      } else {
+        alert(result.message);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  });
+});
