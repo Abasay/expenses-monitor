@@ -5,7 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Fetch all expenses
   const fetchExpenses = async () => {
     try {
-      const response = await fetch('http://localhost:5000/expenses');
+      const response = await fetch(
+        'https://expenses-monitor-api.onrender.com/expenses'
+      );
       const expenses = await response.json();
       expensesList.innerHTML = '';
       expenses.forEach((expense) => {
@@ -34,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const amount = parseFloat(formData.get('amount'));
 
     try {
-      await fetch('http://localhost:5000/expenses', {
+      await fetch('https://expenses-monitor-api.onrender.com/expenses', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -53,9 +55,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.target.classList.contains('delete-btn')) {
       const id = e.target.getAttribute('data-id');
       try {
-        await fetch(`http://localhost:5000/expenses/${id}`, {
-          method: 'DELETE',
-        });
+        await fetch(
+          `https://expenses-monitor-api.onrender.com/expenses/${id}`,
+          {
+            method: 'DELETE',
+          }
+        );
         fetchExpenses();
       } catch (err) {
         console.error(err);
@@ -79,13 +84,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const password = formData.get('password');
 
     try {
-      const response = await fetch('http://localhost:5000/auth/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-      });
+      const response = await fetch(
+        'https://expenses-monitor-api.onrender.com/auth/signup',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, password }),
+        }
+      );
       const result = await response.json();
       if (response.ok) {
         alert('Signup successful!');
@@ -106,13 +114,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const password = formData.get('password');
 
     try {
-      const response = await fetch('http://localhost:5000/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-      });
+      const response = await fetch(
+        'https://expenses-monitor-api.onrender.com/auth/login',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, password }),
+        }
+      );
       const result = await response.json();
       if (response.ok) {
         localStorage.setItem('token', result.token);
