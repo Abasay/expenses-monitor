@@ -5,8 +5,7 @@ const auth = require('../protect.js');
 
 // Get all expenses
 
-// router.use(auth);
-router.get('/expenses', auth, async (req, res) => {
+router.get('/expenses', async (req, res) => {
   try {
     const expenses = await Expense.find();
     res.json(expenses);
@@ -16,7 +15,7 @@ router.get('/expenses', auth, async (req, res) => {
 });
 
 // Add new expense
-router.post('/expenses', auth, async (req, res) => {
+router.post('/expenses', async (req, res) => {
   const { name, amount } = req.body;
   try {
     const newExpense = new Expense({ name, amount });
@@ -28,7 +27,7 @@ router.post('/expenses', auth, async (req, res) => {
 });
 
 // Update an expense
-router.put('/expenses/:id', auth, async (req, res) => {
+router.put('/expenses/:id', async (req, res) => {
   const { id } = req.params;
   const { name, amount } = req.body;
   try {
