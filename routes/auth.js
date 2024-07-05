@@ -6,13 +6,15 @@ const User = require('../models/user.js');
 const path = require('path');
 
 router.get('/signup', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../public/signup.html'));
+  res.sendFile(path.join(__dirname, '../public/signup.html'));
 });
 
+// Route to render login page
 router.get('/login', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../public/login.html'));
+  res.sendFile(path.join(__dirname, '../public/login.html'));
 });
 
+// Signup route
 router.post('/signup', async (req, res) => {
   const { username, password } = req.body;
   try {
@@ -24,12 +26,14 @@ router.post('/signup', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({ username, password: hashedPassword });
     await newUser.save();
-    res.redirect('/auth/login');
+
+    res.status(201).json({ message: 'User created successfully' });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
+// Login route
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
   try {
@@ -50,10 +54,8 @@ router.post('/login', async (req, res) => {
         expiresIn: '1h',
       }
     );
-    res.cookie('token', token, { httpOnly: true });
-    res.redirect('/');
+    res.json({ token });
   } catch (err) {
-    console.log(err);
     res.status(500).json({ error: err.message });
   }
 });
