@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (response.ok) {
         localStorage.setItem('token', result.token);
         alert('Login successful!');
-        window.location.href = '/';
+        window.location.href = 'https://expenses-monitor.onrender.com';
       } else {
         alert(result.message);
       }
