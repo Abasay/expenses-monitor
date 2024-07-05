@@ -11,17 +11,17 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 
 connectDB();
 
-app.use((req, res, next) => {
-  res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
-});
+// app.use((req, res, next) => {
+//   res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
+// });
 
-app.use((err, req, res, next) => {
-  res.status(500).sendFile(path.join(__dirname, 'public', '500.html'));
-});
+// app.use((err, req, res, next) => {
+//   res.status(500).sendFile(path.join(__dirname, 'public', '500.html'));
+// });
 
 const indexRoutes = require('./routes/index');
 const authRoutes = require('./routes/auth');

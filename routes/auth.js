@@ -5,15 +5,6 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user.js');
 const path = require('path');
 
-router.get('/signup', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/signup.html'));
-});
-
-// Route to render login page
-router.get('/login', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/login.html'));
-});
-
 // Signup route
 router.post('/signup', async (req, res) => {
   const { username, password } = req.body;
